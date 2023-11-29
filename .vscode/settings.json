@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/yarn.lock": true,
+    "**/.gitignore": true,
+    "**/README.md": true,
+    "**/CHANGELOG.md": true,
+    "**/dist/**": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+}

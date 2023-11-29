@@ -1,0 +1,22 @@
+{
+  "name": "flight-api",
+  "packageManager": "yarn@3.6.4",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "ultra -r dev",
+    "build": "ultra -r build",
+    "build-fast": "ultra -r build-fast",
+    "release": "yarn build && yarn changeset publish",
+    "version": "changeset version && yarn install --no-immutable"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.26.2",
+    "prettier": "3.0.3",
+    "tsup": "7.2.0",
+    "typescript": "^5.3.2",
+    "ultra-runner": "3.10.5"
+  }
+}

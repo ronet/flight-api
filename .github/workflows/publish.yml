@@ -1,0 +1,55 @@
+on:
+  push:
+    paths:
+      - ".changeset/**"
+      - "packages/**"
+      - ".github/**"
+    branches:
+      - main
+
+name: Publish packages
+
+jobs:
+  release:
+    name: Publish packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Create release Pull Request or publish to NPM
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: yarn release
+          version: yarn version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Send slack if publish failed
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          text: "${{ github.repository }} 배포 실패."
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()
+
+      - name: Send slack if publish succeeded
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          text: "${{ github.repository }} 배포 성공!"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: success()

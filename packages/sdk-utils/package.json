@@ -1,0 +1,22 @@
+{
+  "name": "@flight-api/sdk-utils",
+  "packageManager": "yarn@3.6.4",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "ronet"
+  },
+  "scripts": {
+    "build-fast": "tsup src/index.ts --format esm,cjs",
+    "build": "tsup src/index.ts --format esm,cjs --dts --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts"
+  },
+  "dependencies": {
+    "moment-timezone": "^0.5.43"
+  }
+}
